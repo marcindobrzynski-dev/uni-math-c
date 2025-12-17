@@ -53,3 +53,11 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# Visual Studio temporary files and databases
+.vs/
+*.db
+*.opendb
+*.vsidx
+*.user
+*.suo
