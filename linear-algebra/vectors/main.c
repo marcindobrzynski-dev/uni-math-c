@@ -81,6 +81,49 @@ int main() {
 			break;
 		}
 		case 2: {
+			system("cls");
+
+			int vector_length = 3;
+
+			int size_a = 0;
+			int capacity_a = 2;
+			float* vector_a = (float*)malloc(vector_length * sizeof(float));
+
+			if (readVectorFromUser(&vector_a, &size_a, &capacity_a, false, vector_length) != EXIT_SUCCESS) {
+				clearVector(&vector_a);
+
+				return EXIT_FAILURE;
+			}
+
+			printf("\n");
+
+			int size_b = 0;
+			int capacity_b = 2;
+			float* vector_b = (float*)malloc(vector_length * sizeof(float));
+
+			if (readVectorFromUser(&vector_b, &size_b, &capacity_b, false, vector_length) != EXIT_SUCCESS) {
+				clearVector(&vector_a);
+				clearVector(&vector_b);
+
+				return EXIT_FAILURE;
+			}
+
+			if (size_a == 3 && size_b == 3) {
+				float result_a = (vector_a[1] * vector_b[2]) - (vector_a[2] * vector_b[1]);
+				float result_b = -((vector_a[0] * vector_b[2]) - (vector_a[2] * vector_b[0]));
+				float result_c = (vector_a[0] * vector_b[1]) - (vector_a[1] * vector_b[0]);
+
+				printf("\nThe cross product of vectors a and b = [%.2f, %.2f, %.2f]\n\n", result_a, result_b, result_c);
+			}
+			else {
+				printf("\nThe cross product requires exactly 3 coordinates!\n\n");
+			}
+
+			clearVector((void**)&vector_a);
+			clearVector((void**)&vector_b);
+
+			system("pause");
+
 			break;
 		}
 		case 3: {
