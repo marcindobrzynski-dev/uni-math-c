@@ -2,8 +2,13 @@
 #include <stdlib.h>
 #include "vectors.h"
 
-int readVectorFromUser(float** vector, int* size, int* capacity, bool isLastVector, int maxVectorLength) {
-	char vectorName = isLastVector ? 'b' : 'a';
+float* initializeBasicVector(int capacity) {
+	float* vector = (float*)malloc(capacity * sizeof(float));
+
+	return vector;
+}
+
+int readVectorFromUser(float** vector, int* size, int* capacity, char vectorName, int maxVectorLength) {
 	float input;
 
 	printf("---Enter the numbers of vector %c (enter letter to end)---\n", vectorName);
@@ -33,9 +38,23 @@ int readVectorFromUser(float** vector, int* size, int* capacity, bool isLastVect
 	return EXIT_SUCCESS;
 }
 
-void showVectorItems(const float* vector, int size, bool isLastVector) {
-	char vectorName = isLastVector ? 'b' : 'a';
+float* prepareVector(int* size, int* capacity, char vectorName, int maxVectorLength) {
+	*capacity = 2;
+	*size = 0;
+	float* vector = initializeBasicVector(*capacity);
 
+	if (vector == NULL) return NULL;
+
+	if (readVectorFromUser(&vector, size, capacity, vectorName, maxVectorLength) != EXIT_SUCCESS) {
+		clearVector((void**)&vector);
+
+		return NULL;
+	}
+
+	return vector;
+}
+
+void showVectorItems(const float* vector, int size, char vectorName) {
 	printf("\nCollected %d numbers. Your vector %c:\n", size, vectorName);
 	printf("%c = [", vectorName);
 	for (int i = 0; i < size; i++) {

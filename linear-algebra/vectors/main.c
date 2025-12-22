@@ -39,31 +39,16 @@ int main() {
 		case 1: {
 			system("cls");
 
-			int capacity_a = 2;
-			int size_a = 0;
-			float* vector_a = (float*)malloc(capacity_a * sizeof(float));
-
-			if (readVectorFromUser(&vector_a, &size_a, &capacity_a, false, 0) != EXIT_SUCCESS) {
-				clearVector((void**)&vector_a);
-
-				return EXIT_FAILURE;
-			}
+			int capacity_a = 2, size_a = 0;
+			float* vector_a = prepareVector(&size_a, &capacity_a, 'a', 0);
 
 			printf("\n");
 
-			int capacity_b = 2;
-			int size_b = 0;
-			float* vector_b = (float*)malloc(capacity_b * sizeof(float));
+			int capacity_b = 2, size_b = 0;
+			float* vector_b = prepareVector(&size_b, &capacity_b, 'b', size_a);
 
-			if (readVectorFromUser(&vector_b, &size_b, &capacity_b, true, size_a) != EXIT_SUCCESS) {
-				clearVector((void**)&vector_a);
-				clearVector((void**)&vector_b);
-
-				return EXIT_FAILURE;
-			}
-
-			showVectorItems(vector_a, size_a, false);
-			showVectorItems(vector_b, size_b, true);
+			showVectorItems(vector_a, size_a, 'a');
+			showVectorItems(vector_b, size_b, 'b');
 
 			if (size_a == size_b) {
 				float result = calculateDotProduct(vector_a, vector_b, size_a);
@@ -85,28 +70,16 @@ int main() {
 
 			int vector_length = 3;
 
-			int size_a = 0;
-			int capacity_a = 2;
-			float* vector_a = (float*)malloc(vector_length * sizeof(float));
-
-			if (readVectorFromUser(&vector_a, &size_a, &capacity_a, false, vector_length) != EXIT_SUCCESS) {
-				clearVector(&vector_a);
-
-				return EXIT_FAILURE;
-			}
+			int size_a = 0, capacity_a = 2;
+			float* vector_a = prepareVector(&size_a, &capacity_a, 'a', MAX_VECTOR_LENGTH);
 
 			printf("\n");
 
-			int size_b = 0;
-			int capacity_b = 2;
-			float* vector_b = (float*)malloc(vector_length * sizeof(float));
+			int size_b = 0, capacity_b = 2;
+			float* vector_b = prepareVector(&size_b, &capacity_b, 'b', MAX_VECTOR_LENGTH);
 
-			if (readVectorFromUser(&vector_b, &size_b, &capacity_b, false, vector_length) != EXIT_SUCCESS) {
-				clearVector(&vector_a);
-				clearVector(&vector_b);
-
-				return EXIT_FAILURE;
-			}
+			showVectorItems(vector_a, size_a, 'a');
+			showVectorItems(vector_b, size_b, 'b');
 
 			if (size_a == 3 && size_b == 3) {
 				float result_a = (vector_a[1] * vector_b[2]) - (vector_a[2] * vector_b[1]);
@@ -127,6 +100,46 @@ int main() {
 			break;
 		}
 		case 3: {
+			system("cls");
+
+			int capacity_a = 2, size_a = 0;
+			float* vector_a = prepareVector(&size_a, &capacity_a, 'a', MAX_VECTOR_LENGTH);
+
+			printf("\n");
+
+			int capacity_b = 2, size_b = 0;
+			float* vector_b = prepareVector(&size_b, &capacity_b, 'b', MAX_VECTOR_LENGTH);
+
+			printf("\n");
+
+			int capacity_c = 2, size_c = 0;
+			float* vector_c = prepareVector(&size_c, &capacity_c, 'c', MAX_VECTOR_LENGTH);
+
+			showVectorItems(vector_a, size_a, 'a');
+			showVectorItems(vector_b, size_b, 'b');
+			showVectorItems(vector_c, size_c, 'c');
+
+			if (size_a == 3 && size_b == 3 && size_c == 3) {
+				float result =
+					vector_a[0] * vector_b[1] * vector_c[2] +
+					vector_a[1] * vector_b[2] * vector_c[0] +
+					vector_a[2] * vector_b[0] * vector_c[1] -
+					(vector_a[1] * vector_b[0] * vector_c[2] +
+					vector_a[0] * vector_b[2] * vector_c[1] +
+					vector_a[2] * vector_b[1] * vector_c[0]);
+
+				printf("\nThe mixed product of vectors a, b, c = %.2f\n\n", result);
+			}
+			else {
+				printf("\nThe mixed product requires exactly 3 coordinates!\n\n");
+			}
+
+			clearVector((void**)&vector_a);
+			clearVector((void**)&vector_b);
+			clearVector((void**)&vector_c);
+
+			system("pause");
+
 			break;
 		}
 		case 4: {
